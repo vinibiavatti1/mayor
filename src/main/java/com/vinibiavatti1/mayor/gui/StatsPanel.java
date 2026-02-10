@@ -22,10 +22,12 @@ public class StatsPanel extends JPanel {
         fields.forEach((resource, field) -> {
             int amount = stats.get(resource);
             field.setText(String.valueOf(amount));
-            switch (amount) {
-                case Integer x when x < 0 -> field.setForeground(Color.RED);
-                case Integer x when x > 0 -> field.setForeground(Color.BLUE);
-                default -> field.setForeground(Color.BLACK);
+            if (amount < 0) {
+                field.setForeground(Color.RED);
+            } else if (amount > 0) {
+                field.setForeground(Color.BLUE);
+            } else {
+                field.setForeground(Color.BLACK);
             }
         });
     }
