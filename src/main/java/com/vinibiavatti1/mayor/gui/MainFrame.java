@@ -8,6 +8,7 @@ import com.vinibiavatti1.mayor.model.Stats;
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
+import java.util.Collections;
 import java.util.Objects;
 
 public class MainFrame extends JFrame {
@@ -45,7 +46,7 @@ public class MainFrame extends JFrame {
     }
 
     public void handleBuildingMenuItemClick(BuildingMenuItem buildingMenuItem) {
-        this.currentTileButton.disable(buildingMenuItem);
+        this.currentTileButton.disable(buildingMenuItem.getBuilding());
         this.stats.applyBuildingResourceDeltas(buildingMenuItem.getBuilding(), this.difficulty);
         this.statsPanel.refresh(this.stats);
         this.checkVictory();
@@ -59,7 +60,17 @@ public class MainFrame extends JFrame {
         this.setTitle(String.format(TITLE_FORMAT, Constants.TITLE, Constants.VERSION, difficulty));
         this.stats.reset();
         this.gridPanel.reset();
+        this.setupInitialLandmarks();
         this.statsPanel.refresh(this.stats);
+    }
+
+    private void setupInitialLandmarks() {
+        int limit = this.difficulty == Difficulty.HARD ? 2 : 1;
+        Collections.shuffle(this.gridPanel.getTiles());
+        this.gridPanel.getTiles().stream().limit(limit).forEach(tile -> {
+            tile.disable(Building.LANDMARK);
+            stats.applyBuildingResourceDeltas(Building.LANDMARK, this.difficulty);
+        });
     }
 
     private void checkVictory() {

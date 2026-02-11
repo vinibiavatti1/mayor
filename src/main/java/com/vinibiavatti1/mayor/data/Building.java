@@ -99,7 +99,7 @@ public enum Building {
             new ResourceDelta(Resource.NATURE, -1),
     }),
     HOSPITAL("Hospital", 12, "/hospital.png", new ResourceDelta[] {
-            new ResourceDelta(Resource.HEALTH, 8),
+            new ResourceDelta(Resource.HEALTH, 9),
             new ResourceDelta(Resource.POPULATION, -1),
             new ResourceDelta(Resource.BUSINESS, -1),
             new ResourceDelta(Resource.ELECTRICITY, -1),
@@ -108,7 +108,7 @@ public enum Building {
     }),
     UNIVERSITY("University", 13, "/university.png", new ResourceDelta[] {
             new ResourceDelta(Resource.PROFESSIONALISM, 6),
-            new ResourceDelta(Resource.EDUCATION, 2),
+            new ResourceDelta(Resource.EDUCATION, 3),
             new ResourceDelta(Resource.POPULATION, -1),
             new ResourceDelta(Resource.BUSINESS, -1),
             new ResourceDelta(Resource.PRODUCTION, -1),
@@ -118,7 +118,8 @@ public enum Building {
             new ResourceDelta(Resource.NATURE, -1),
     }),
     MUSEUM("Museum", 14, "/museum.png", new ResourceDelta[] {
-            new ResourceDelta(Resource.CULTURE, 1),
+            new ResourceDelta(Resource.CULTURE, 2),
+            new ResourceDelta(Resource.TOURISM, 2),
             new ResourceDelta(Resource.POPULATION, -1),
             new ResourceDelta(Resource.BUSINESS, -1),
             new ResourceDelta(Resource.PRODUCTION, -1),
@@ -128,7 +129,7 @@ public enum Building {
             new ResourceDelta(Resource.NATURE, -1),
     }),
     AIRPORT("Airport", 15, "/airport.png", new ResourceDelta[] {
-            new ResourceDelta(Resource.TOURISM, 7),
+            new ResourceDelta(Resource.TOURISM, 10),
             new ResourceDelta(Resource.POPULATION, -1),
             new ResourceDelta(Resource.BUSINESS, -1),
             new ResourceDelta(Resource.PRODUCTION, -1),
@@ -140,7 +141,7 @@ public enum Building {
             new ResourceDelta(Resource.NATURE, -1),
     }),
     STOCK_EXCHANGE("Stock Exchange", 16, "/stock_exchange.png", new ResourceDelta[] {
-            new ResourceDelta(Resource.TRADING, 1),
+            new ResourceDelta(Resource.TRADING, 2),
             new ResourceDelta(Resource.POPULATION, -1),
             new ResourceDelta(Resource.BUSINESS, -1),
             new ResourceDelta(Resource.PRODUCTION, -1),
@@ -153,7 +154,7 @@ public enum Building {
             new ResourceDelta(Resource.NATURE, -1),
     }),
     HEADQUARTERS("Headquarters", 17, "/headquarters.png", new ResourceDelta[] {
-            new ResourceDelta(Resource.MILITARY, 1),
+            new ResourceDelta(Resource.MILITARY, 2),
             new ResourceDelta(Resource.CRIME_SAFETY, 10),
             new ResourceDelta(Resource.POPULATION, -1),
             new ResourceDelta(Resource.BUSINESS, -1),

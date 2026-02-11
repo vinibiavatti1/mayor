@@ -1,14 +1,14 @@
 package com.vinibiavatti1.mayor.data;
 
 public enum Difficulty {
-    EASY("Easy", 3.0),
-    MEDIUM("Medium", 2.0),
-    HARD("Hard", 1.0);
+    EASY("Easy", 2),
+    MEDIUM("Medium", 1),
+    HARD("Hard", 0);
 
     private final String name;
-    private final double difficultyModifier;
+    private final int difficultyModifier;
 
-    Difficulty(String name, double difficultyModifier) {
+    Difficulty(String name, int difficultyModifier) {
         this.name = name;
         this.difficultyModifier = difficultyModifier;
     }
@@ -21,7 +21,7 @@ public enum Difficulty {
         if (amount <= 0) {
             return amount;
         }
-        return (int) Math.ceil(amount * this.difficultyModifier);
+        return amount + this.difficultyModifier;
     }
 
     @Override
