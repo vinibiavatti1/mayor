@@ -1,27 +1,24 @@
 package com.vinibiavatti1.mayor.data;
 
 public enum Difficulty {
-    EASY("Easy", 2),
-    MEDIUM("Medium", 1),
-    HARD("Hard", 0);
+    EASY("Easy", -1),
+    MEDIUM("Medium", -2),
+    HARD("Hard", -3);
 
     private final String name;
-    private final int difficultyModifier;
+    private final int landmarkDecrementAmount;
 
-    Difficulty(String name, int difficultyModifier) {
+    Difficulty(String name, int landmarkDecrementAmount) {
         this.name = name;
-        this.difficultyModifier = difficultyModifier;
+        this.landmarkDecrementAmount = landmarkDecrementAmount;
     }
 
     public String getName() {
         return name;
     }
 
-    public int computeDifficultyModifier(int amount) {
-        if (amount <= 0) {
-            return amount;
-        }
-        return amount + this.difficultyModifier;
+    public int getLandmarkDecrementAmount() {
+        return landmarkDecrementAmount;
     }
 
     @Override

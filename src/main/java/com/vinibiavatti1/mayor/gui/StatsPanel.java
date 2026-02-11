@@ -1,6 +1,6 @@
 package com.vinibiavatti1.mayor.gui;
 
-import com.vinibiavatti1.mayor.model.Stats;
+import com.vinibiavatti1.mayor.data.Stats;
 import com.vinibiavatti1.mayor.data.Resource;
 
 import javax.swing.*;

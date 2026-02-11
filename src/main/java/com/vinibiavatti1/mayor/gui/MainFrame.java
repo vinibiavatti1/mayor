@@ -3,13 +3,16 @@ package com.vinibiavatti1.mayor.gui;
 import com.vinibiavatti1.mayor.Constants;
 import com.vinibiavatti1.mayor.data.*;
 import com.vinibiavatti1.mayor.gui.dialog.DifficultySelector;
-import com.vinibiavatti1.mayor.model.Stats;
+import com.vinibiavatti1.mayor.data.Stats;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.net.URL;
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class MainFrame extends JFrame {
     private static final String TITLE_FORMAT = "%s (v%s) - Difficulty: %s";
@@ -22,6 +25,7 @@ public class MainFrame extends JFrame {
     private final GridPanel gridPanel = new GridPanel(this);
     private final StatsPanel statsPanel = new StatsPanel();
     private final BuildingMenu buildingMenu = new BuildingMenu(this);
+    private final Set<Building> buildings = new HashSet<>();
 
     private Difficulty difficulty = null;
     private TileButton currentTileButton = null;
@@ -31,25 +35,49 @@ public class MainFrame extends JFrame {
         this.setIconImage(new ImageIcon(iconUrl).getImage());
         this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         this.setResizable(false);
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setJMenuBar(new MenuBar(this));
         this.add(this.gridPanel, BorderLayout.CENTER);
         this.add(this.statsPanel, BorderLayout.LINE_START);
+        this.addWindowListener(new WindowListener(this));
         this.reset();
         this.setVisible(true);
     }
 
     public void handleTileButtonClick(TileButton tileButton) {
-        this.currentTileButton = tileButton;
-        this.buildingMenu.show(tileButton, 0, 0);
+        if (tileButton.getBuilding() == null) {
+            this.currentTileButton = tileButton;
+            this.buildingMenu.show(tileButton, 0, 0);
+        } else {
+            Building building = tileButton.getBuilding();
+            building.updateStats(this.stats, this.difficulty, true);
+            this.statsPanel.refresh(this.stats);
+            tileButton.reset();
+            buildings.remove(building);
+            this.checkVictory();
+        }
     }
 
     public void handleBuildingMenuItemClick(BuildingMenuItem buildingMenuItem) {
-        this.currentTileButton.disable(buildingMenuItem.getBuilding());
-        this.stats.applyBuildingResourceDeltas(buildingMenuItem.getBuilding(), this.difficulty);
+        Building building = buildingMenuItem.getBuilding();
+        this.currentTileButton.placeBuilding(building);
+        building.updateStats(this.stats, this.difficulty, false);
         this.statsPanel.refresh(this.stats);
+        buildings.add(building);
         this.checkVictory();
+    }
+
+    public void clearAll() {
+        this.gridPanel.getTiles().forEach(tile -> {
+            Building building = tile.getBuilding();
+            if (building != null) {
+                building.updateStats(this.stats, this.difficulty, true);
+                tile.reset();
+            }
+        });
+        this.buildings.clear();
+        this.statsPanel.refresh(this.stats);
     }
 
     public void reset() {
@@ -58,32 +86,42 @@ public class MainFrame extends JFrame {
             System.exit(0);
         }
         this.setTitle(String.format(TITLE_FORMAT, Constants.TITLE, Constants.VERSION, difficulty));
+        this.buildings.clear();
         this.stats.reset();
         this.gridPanel.reset();
-        this.setupInitialLandmarks();
         this.statsPanel.refresh(this.stats);
     }
 
-    private void setupInitialLandmarks() {
-        int limit = this.difficulty == Difficulty.HARD ? 2 : 1;
-        Collections.shuffle(this.gridPanel.getTiles());
-        this.gridPanel.getTiles().stream().limit(limit).forEach(tile -> {
-            tile.disable(Building.LANDMARK);
-            stats.applyBuildingResourceDeltas(Building.LANDMARK, this.difficulty);
-        });
+    private boolean hasAllBuildingsBuilt() {
+        return buildings.size() == Building.values().length;
     }
 
     private void checkVictory() {
-        boolean hasNoFreeTiles = this.gridPanel.getTiles().stream().noneMatch(Component::isEnabled);
         boolean hasNegativeAmounts = this.stats.hasNegativeStats();
-        boolean hasLandmarks = this.stats.get(Resource.LANDMARK) > 0;
-
-        if (!hasNegativeAmounts && hasLandmarks) {
+        if (!hasNegativeAmounts && hasAllBuildingsBuilt()) {
             JOptionPane.showMessageDialog(this, Constants.WIN_MESSAGE, Constants.TITLE, JOptionPane.INFORMATION_MESSAGE);
             this.reset();
-        } else if (hasNoFreeTiles) {
-            JOptionPane.showMessageDialog(this, Constants.LOST_MESSAGE, Constants.TITLE, JOptionPane.INFORMATION_MESSAGE);
-            this.reset();
+        }
+    }
+
+    static class WindowListener extends WindowAdapter {
+        private final MainFrame mainFrame;
+
+        public WindowListener(MainFrame mainFrame) {
+            this.mainFrame = mainFrame;
+        }
+
+        @Override
+        public void windowClosing(WindowEvent e) {
+            int option = JOptionPane.showConfirmDialog(
+                    this.mainFrame,
+                    Constants.QUIT_MESSAGE,
+                    Constants.TITLE,
+                    JOptionPane.YES_NO_OPTION
+            );
+            if (option == JOptionPane.YES_OPTION) {
+                System.exit(0);
+            }
         }
     }
 }

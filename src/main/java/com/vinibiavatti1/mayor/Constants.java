@@ -9,7 +9,7 @@ public class Constants {
             Welcome, Mayor!
             Your mission is to build the perfect city.
             Balance resources, manage growth, and discover the right ratios between buildings.
-            To win, create one Landmark without allowing any resource to become negative.
+            To win, create all the available buildings without allowing any resource to become negative.
             Every decision matters. Good luck!
             
             Select your difficulty:
@@ -20,15 +20,14 @@ public class Constants {
             Your leadership proves you are an excellent Mayor, capable of managing resources, growth, and harmony.
             The city stands as a true landmark of perfection!
             """;
-    public static final String LOST_MESSAGE = """
-            You Lost!
-            Your city may have reached a landmark, but imbalance remains.
-            To win, you must build at least one Landmark while keeping all resources above zero.
-            Recalculate your strategy and try again - a perfect city requires careful planning.
+    public static final String CLEAR_MESSAGE = """
+            Clear All Tiles?
+            Are you sure you want to clear all tiles?
+            All progress will be lost.
             """;
-    public static final String RESET_MESSAGE = """
-            Reset Progress?
-            Are you sure you want to reset your progress?
+    public static final String RESTART_MESSAGE = """
+            Restart Game?
+            Are you sure you want to restart?
             This action cannot be undone and all current city data will be lost.
             """;
     public static final String QUIT_MESSAGE = """

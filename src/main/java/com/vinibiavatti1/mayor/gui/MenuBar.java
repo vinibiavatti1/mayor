@@ -18,26 +18,43 @@ public class MenuBar extends JMenuBar {
     private void buildMenu() {
         JMenu menu = new JMenu("Actions");
 
-        JMenuItem resetMenuItem = new JMenuItem("Reset");
+        JMenuItem clearMenuItem = new JMenuItem("Clear All Tiles");
+        JMenuItem restartMenuItem = new JMenuItem("Restart");
         JMenuItem quitMenuItem = new JMenuItem("Quit");
-        URL resetIconUrl = Objects.requireNonNull(this.getClass().getResource("/reset.png"));
+        URL clearIconUrl = Objects.requireNonNull(this.getClass().getResource("/clear.png"));
+        URL restartIconUrl = Objects.requireNonNull(this.getClass().getResource("/reset.png"));
         URL quitIconUrl = Objects.requireNonNull(this.getClass().getResource("/quit.png"));
-        resetMenuItem.setIcon(new ImageIcon(resetIconUrl));
+        clearMenuItem.setIcon(new ImageIcon(clearIconUrl));
+        restartMenuItem.setIcon(new ImageIcon(restartIconUrl));
         quitMenuItem.setIcon(new ImageIcon(quitIconUrl));
-        resetMenuItem.addActionListener(this::handleResetMenuItemClick);
+        clearMenuItem.addActionListener(this::handleClearMenuItemClick);
+        restartMenuItem.addActionListener(this::handleRestartMenuItemClick);
         quitMenuItem.addActionListener(this::handleQuitMenuItemClick);
 
-        menu.add(resetMenuItem);
+        menu.add(clearMenuItem);
+        menu.add(restartMenuItem);
         menu.addSeparator();
         menu.add(quitMenuItem);
 
         this.add(menu);
     }
 
-    private void handleResetMenuItemClick(ActionEvent e) {
+    private void handleClearMenuItemClick(ActionEvent e) {
         int option = JOptionPane.showConfirmDialog(
                 this.mainFrame,
-                Constants.RESET_MESSAGE,
+                Constants.CLEAR_MESSAGE,
+                Constants.TITLE,
+                JOptionPane.YES_NO_OPTION
+        );
+        if (option == JOptionPane.YES_OPTION) {
+            mainFrame.clearAll();
+        }
+    }
+
+    private void handleRestartMenuItemClick(ActionEvent e) {
+        int option = JOptionPane.showConfirmDialog(
+                this.mainFrame,
+                Constants.RESTART_MESSAGE,
                 Constants.TITLE,
                 JOptionPane.YES_NO_OPTION
         );
