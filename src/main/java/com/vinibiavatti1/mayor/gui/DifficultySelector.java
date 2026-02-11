@@ -1,4 +1,4 @@
-package com.vinibiavatti1.mayor.gui.dialog;
+package com.vinibiavatti1.mayor.gui;
 
 import com.vinibiavatti1.mayor.Constants;
 import com.vinibiavatti1.mayor.data.Difficulty;

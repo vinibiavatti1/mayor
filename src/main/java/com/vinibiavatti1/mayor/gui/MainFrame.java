@@ -2,7 +2,6 @@ package com.vinibiavatti1.mayor.gui;
 
 import com.vinibiavatti1.mayor.Constants;
 import com.vinibiavatti1.mayor.data.*;
-import com.vinibiavatti1.mayor.gui.dialog.DifficultySelector;
 import com.vinibiavatti1.mayor.data.Stats;
 
 import javax.swing.*;
