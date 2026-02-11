@@ -10,6 +10,7 @@ public class Constants {
             Your mission is to build the perfect city.
             Balance resources, manage growth, and discover the right ratios between buildings.
             To win, create all the available buildings without allowing any resource to become negative.
+            Also, see how many Landmarks you can build in a perfect city!
             Every decision matters. Good luck!
             
             Select your difficulty:
@@ -34,5 +35,10 @@ public class Constants {
             Exit Game?
             Are you sure you want to exit the game?
             All progress will be lost.
+            """;
+    public static final String BUILD_MESSAGE = """
+            Build All Building Types?
+            Are you sure you want to build all building types automatically?
+            This is replace all existing buildings in the first tiles.
             """;
 }

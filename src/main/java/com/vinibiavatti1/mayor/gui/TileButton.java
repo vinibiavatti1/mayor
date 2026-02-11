@@ -3,6 +3,7 @@ package com.vinibiavatti1.mayor.gui;
 import com.vinibiavatti1.mayor.data.Building;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.Objects;
 
 public class TileButton extends JButton {

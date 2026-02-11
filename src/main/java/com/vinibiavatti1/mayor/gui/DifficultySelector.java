@@ -8,9 +8,15 @@ import javax.swing.*;
 public class DifficultySelector {
     private static final String TITLE_FORMAT = "%s (v%s)";
 
+    private final MainFrame mainFrame;
+
+    public DifficultySelector(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
+    }
+
     public Difficulty show() {
         int option = JOptionPane.showOptionDialog(
-                null,
+                this.mainFrame,
                 Constants.WELCOME_MESSAGE,
                 String.format(TITLE_FORMAT, Constants.TITLE, Constants.VERSION),
                 JOptionPane.DEFAULT_OPTION,

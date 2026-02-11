@@ -1,6 +1,6 @@
 package com.vinibiavatti1.mayor.gui;
 
-import com.vinibiavatti1.mayor.data.Stats;
+import com.vinibiavatti1.mayor.data.ResourceStats;
 import com.vinibiavatti1.mayor.data.Resource;
 
 import javax.swing.*;
@@ -18,9 +18,9 @@ public class StatsPanel extends JPanel {
         this.createFields();
     }
 
-    public void refresh(Stats stats) {
+    public void refresh(ResourceStats resourceStats) {
         fields.forEach((resource, field) -> {
-            int amount = stats.get(resource);
+            int amount = resourceStats.getResourceAmount(resource);
             field.setText(String.valueOf(amount));
             if (amount < 0) {
                 field.setForeground(Color.RED);
