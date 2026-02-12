@@ -54,8 +54,8 @@ public class MainFrame extends JFrame {
             Building building = tileButton.getBuilding();
             building.updateResourceStats(this.resourceStats, this.difficulty, true);
             tileButton.reset();
-            refresh();
             this.checkVictory();
+            refresh();
         }
     }
 
